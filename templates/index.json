@@ -79,7 +79,7 @@
               "type": "_compliance-link",
               "name": "No Purchase Necessary",
               "settings": {
-                "link": "#",
+                "link": "shopify://pages/no-purchase-necessary",
                 "link_text": "No purchase necessary",
                 "link_required": true,
                 "link_external": false
@@ -109,7 +109,7 @@
         "text_7U7pwP",
         "compliance_links_JrXmkc"
       ],
-      "name": "Rich Text",
+      "name": "Tour pre-order for access",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
