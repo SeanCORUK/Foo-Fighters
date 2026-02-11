@@ -80,6 +80,9 @@
           "blocks": {}
         }
       },
+      "custom_css": [
+        ".header__columns {align-items: start; outline: 1px solid green;}"
+      ],
       "settings": {
         "logo_position": "left",
         "menu_position": "right",
