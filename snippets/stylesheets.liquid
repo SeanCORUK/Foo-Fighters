@@ -1,2 +1,116 @@
 {{ 'overflow-list.css' | asset_url | preload_tag: as: 'style' }}
 {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+
+{%- if page.metafields.custom.npn_embed != blank %}
+  {{ '//cdn-images.mailchimp.com/embedcode/classic-061523.css' | stylesheet_tag -}}
+
+  <style type="text/css">
+      .npn-embed #mc_embed_signup {
+        margin: 0 auto;
+        width: 90%;
+        max-width: 620px;
+        padding-bottom: 100px;
+      }
+      #mc_embed_signup .mc-field-group {
+        width: 100%;
+      }
+
+      .npn-embed form {
+        line-height: 1;
+      }
+
+      #mc-embedded-subscribe-form input[type=checkbox] {
+        display: inline;
+        width: auto;
+        margin-right: 10px;
+      }
+
+      #mergeRow-gdpr {
+        margin-top: 20px;
+      }
+
+      #mergeRow-gdpr fieldset label {
+        font-weight: normal;
+      }
+
+      #mc-embedded-subscribe-form .mc_fieldset {
+        border: none;
+        min-height: 0px;
+        padding-bottom: 0px;
+      }
+
+      #mc_embed_signup .helper_text:empty {
+        display: none;
+      }
+
+      #mc_embed_signup .mc-field-group label {
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      #mc_embed_signup .mc-field-group input {
+        padding: 16px 8px;
+        border-radius: 0;
+        border: 1px solid var(--color-foreground);
+      }
+
+      #mc_embed_signup .mc-field-group select {
+        padding: 10px 5px;
+        border-radius: 0;
+        border: 1px solid var(--color-foreground);
+      }
+
+      #mc-embedded-subscribe-form .mc_fieldset {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #mc_embed_signup .fw400 {
+        font-weight: 400 !important;
+      }
+
+      #mc_embed_signup .size1of2 {
+        width: 100%;
+      }
+
+      #mc_embed_signup .small-meta {
+        font-size: 14px
+      }
+
+      #mc_embed_signup .button {
+        border-radius: 0;
+        width: 100%;
+        border: 1px solid var(--color-foreground);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-weight: 700;
+        min-height: 50px;
+        font-size: 1.75rem;
+      }
+
+      #mc_embed_signup .button:hover,
+      #mc_embed_signup .button:focus {
+        border: 1px solid var(--color-foreground);
+        background-color: var(--color-foreground);
+        color: var(--color-background);
+      }
+
+
+      #mc_embed_signup div#mce-responses {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+      #mc_embed_signup div.response {
+        width: 100%;
+        margin: 0;
+        padding: 15px 0;
+        text-align: center;
+        line-height: 1.5
+      }
+    {% if page.metafields.custom.npn_css %}
+      {{ page.metafields.custom.npn_css }}
+    {% endif %}
+  </style>
+{% endif %}
