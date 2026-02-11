@@ -81,7 +81,8 @@
         }
       },
       "custom_css": [
-        ".header__columns {align-items: start; outline: 1px solid green;}"
+        ".header__columns {align-items: start; outline: 1px solid green;}",
+        ".header-logo__image-container {position: absolute; top: 0.5rem; @media (min-width: 750px) {inset: 20px auto auto 30px; width:120px; height: 120px; }}"
       ],
       "settings": {
         "logo_position": "left",
