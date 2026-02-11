@@ -1,0 +1,147 @@
+{% comment %} Adds light boxb {% endcomment %}
+<div id="lightbox">
+  <button class="close-btn">
+    {{ 'icon-close.svg' | inline_asset_content }}
+    <span class="visually-hidden">Close Lightbox</span>
+  </button>
+  <iframe src="" id="lightbox-iframe"></iframe>
+</div>
+
+{% if closest.product.metafields.custom.size_guide != blank %}
+  <div
+    id="size-guide-lightbox"
+    style=""
+  >
+    <button
+      class="size-guide-close-btn"
+      style=""
+    >
+      {{ 'icon-close.svg' | inline_asset_content }}
+      <span class="visually-hidden">Close Lightbox</span>
+    </button>
+    <div class="size-guide">
+      {%- assign info_page = pages[closest.product.metafields.custom.size_guide] -%}
+      {{ info_page.content }}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sizeGuideTrigger = document.getElementById('size-guide');
+      const sizeGuideLightbox = document.getElementById('size-guide-lightbox');
+      const closeButton = sizeGuideLightbox.querySelector('.size-guide-close-btn');
+
+      sizeGuideTrigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        sizeGuideLightbox.style.display = 'block';
+      });
+
+      closeButton.addEventListener('click', function () {
+        sizeGuideLightbox.style.display = 'none';
+      });
+
+      // Close lightbox when clicking outside of it
+      window.addEventListener('click', function (e) {
+        if (e.target === sizeGuideLightbox) {
+          sizeGuideLightbox.style.display = 'none';
+        }
+      });
+    });
+  </script>
+{% endif %}
+{% stylesheet %}
+
+/* Lightbox */
+#size-guide {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+  background-color: transparent;
+  border: 0;
+  font-size: 12px;
+  color: rgb(var(--color-foreground));
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#size-guide-lightbox,
+#lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#lightbox iframe {
+  width: calc(100% - 44px);
+  min-height: calc(100vh - 88px);
+  min-height: calc(100svh - 88px);
+  min-height: calc(100dvh - 88px);
+  border: none;
+}
+
+@media (min-width: 750px) {
+  #lightbox iframe {
+    width: calc(100% - 88px);
+  }
+}
+
+#size-guide-lightbox .size-guide-close-btn,
+#lightbox .close-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: #fff;
+  border: none;
+  padding: 0px;
+  cursor: pointer;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+#size-guide-lightbox .size-guide-close-btn .icon,
+#lightbox .close-btn .icon {
+  width: 65%;
+  height: 65%;
+  transition: scale 200ms ease-in-out;
+}
+
+#size-guide-lightbox .size-guide-close-btn:hover .icon,
+#lightbox .close-btn:hover .icon {
+  transform: scale(1.125);
+  scale: 1.125;
+}
+
+#size-guide-lightbox .size-guide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 15px;
+  max-width: 100%;
+  width: fit-content;
+  /* min-width: 360px; */
+  overflow: auto;
+  color: #111;
+}
+
+.variant-picker__form legend {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+{% endstylesheet %}

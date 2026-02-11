@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:names.footer",
+  "sections": {
+    "footer_utilities_cor_pFd6CV": {
+      "type": "footer-utilities--cor",
+      "blocks": {
+        "social_links_8FfjDT": {
+          "type": "social-links",
+          "settings": {
+            "icon_size": 30,
+            "facebook_url": "https://facebook.com/kylieminogue",
+            "instagram_url": "https://instagram.com/kylieminogue",
+            "youtube_url": "https://youtube.com/@kylieminogue",
+            "tiktok_url": "",
+            "twitter_url": "",
+            "threads_url": "",
+            "linkedin_url": "",
+            "bluesky_url": "",
+            "snapchat_url": "",
+            "pinterest_url": "",
+            "tumblr_url": "",
+            "vimeo_url": "",
+            "twitch_url": "",
+            "discord_url": "",
+            "apple_music_url": "https://music.apple.com/us/artist/kylie-minogue/465031",
+            "spotify_url": "https://open.spotify.com/artist/4RVnAU35WRWra6OZ3CbbMA?si=dbedcae1c40a4975",
+            "custom_url": ""
+          },
+          "blocks": {}
+        },
+        "footer_policy_list_mCG7h8": {
+          "type": "footer-policy-list",
+          "settings": {
+            "use_uk_policies": true,
+            "custom_policies": "",
+            "use_shopify_policies": false,
+            "font_size": "0.875rem",
+            "case": "uppercase"
+          },
+          "blocks": {}
+        },
+        "footer_copyright_MjhT8L": {
+          "type": "footer-copyright",
+          "settings": {
+            "show_powered_by": false,
+            "custom_copyright": "",
+            "font_size": "0.75rem",
+            "case": "uppercase"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "social_links_8FfjDT",
+        "footer_policy_list_mCG7h8",
+        "footer_copyright_MjhT8L"
+      ],
+      "name": "COR Policies & Links",
+      "settings": {
+        "horizontal_alignment": "center",
+        "section_width": "page-width",
+        "gap": 16,
+        "divider_thickness": 1,
+        "color_scheme": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    }
+  },
+  "order": [
+    "footer_utilities_cor_pFd6CV"
+  ]
+}

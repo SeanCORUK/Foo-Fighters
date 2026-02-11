@@ -1,0 +1,60 @@
+<spotify-player id="{{ block.id }}">
+  <div class="dsp spotify-container">
+    {% assign spotify_url = block.settings.spotify %}
+    {% assign spotify_album_id = spotify_url | split: '/album/' | last | split: '?si' | first %}
+    <iframe
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/album/{{ spotify_album_id }}{% if block.settings.spotify_alt == true %}?theme=0{% endif %}"
+      width="100%"
+      height="{% if block.settings.spotify_small == true %}152{% else %}450{% endif %}"
+      frameBorder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      class="spotify-frame"
+    ></iframe>
+  </div>
+</spotify-player>
+
+{% stylesheet %}
+  .shopify-block:has(spotify-player),
+  .spotify-container,
+  .spotify-container iframe {
+    width: 100%
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Spotify",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spotify",
+      "info": "Use Share, Copy Album Link, you can target the iframe using the class .spotify-iframe"
+    },
+    {
+      "type": "text",
+      "id": "spotify",
+      "label": "Spotify",
+      "info": "eg: https://open.spotify.com/album/4VNaEhdswqNiEMAcfSav9g?si=P_0EnDqpSv6Y05HFG966MA"
+    },
+    {
+      "type": "checkbox",
+      "id": "spotify_alt",
+      "label": "Use alternate theme"
+    },
+    {
+      "type": "checkbox",
+      "id": "spotify_small",
+      "label": "Make small"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spotify",
+      "category": "t:categories.music"
+    }
+  ]
+}
+{% endschema %}

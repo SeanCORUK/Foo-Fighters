@@ -1,0 +1,140 @@
+{% unless block.settings.details_content == blank %}
+<details class="custom-details"{% if block.settings.details_open == true %} open{% endif %}>
+  <summary class="custom-details--summary">{{ block.settings.details_summary }}</summary>
+  <div class="custom-details--content">{{ block.settings.details_content }}</div>
+</details>
+{% endunless %}
+
+{% stylesheet %}
+/* Details Accordion Styling */
+.custom-details {
+  border-bottom: 1px solid rgba(var(--color-foreground-rgb) / 0.1);
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.custom-details:hover {
+  border-bottom: 1px solid rgba(var(--color-foreground-rgb) / 0.175);
+}
+
+.custom-details[open] {
+}
+
+/* Summary styling */
+.custom-details--summary {
+  padding: var(--gap-sm);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.custom-details--summary:hover {
+  color: var(--color-foreground);
+}
+
+/* Remove default marker */
+.custom-details--summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom arrow indicator */
+.custom-details--summary::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--color-foreground);;
+  border-bottom: 2px solid var(--color-foreground);;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.custom-details--summary:hover::after {
+  border-color: var(--color-foreground);;
+}
+
+.custom-details[open] .custom-details--summary::after {
+  transform: rotate(-135deg);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Details Content */
+.custom-details--content {
+  padding: var(--gap-sm);
+  padding-top: 0;
+}
+
+.custom-details--content ul, 
+.custom-details--content ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.custom-details--content ol{
+    list-style: decimal-leading-zero;
+    list-style-position: inside;
+}
+
+
+/* Focus state for accessibility */
+.custom-details--summary:focus {
+  outline: 2px solid #4CAF50;
+  outline-offset: 2px;
+}
+
+.custom-details--summary:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.custom-details--summary:focus-visible {
+  outline: 2px solid #4CAF50;
+  outline-offset: 2px;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+    "name": "Detals Block",
+    "settings": [
+        {
+            "type": "text",
+            "label": "t:names.title",
+            "id": "details_summary"
+        },
+        {
+            "type": "richtext",
+            "label": "t:names.content",
+            "id": "details_content"
+        },
+        {
+            "type": "checkbox",
+            "label": "t:names.open_on_load",
+            "id": "details_open"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Details Block",
+            "settings": {}
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,152 @@
+<ul
+  class="spacing-style banner-compliance-links"
+  style="--compliance-font-size: {{ block.settings.compliance_font_size | divided_by: 16.00 }}rem; {% render 'spacing-padding', settings: block.settings %}"
+>
+    {% content_for 'blocks' %}
+</ul>
+
+{% stylesheet %}
+  .banner-compliance-links {
+    list-style: none;
+    font-size: var(--compliance-font-size);
+    display: grid;
+    justify-content: var(--horizontal-alignment);
+    justify-items: var(--horizontal-alignment);
+    @media (min-width: 750px) {
+      display: flex;
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .banner-compliance-links {
+        gap: 0
+    }
+    .banner-compliance-links li:after {
+        content: "|";
+        margin-inline: 0.5rem 0.6rem;
+    }
+    .banner-compliance-links li:last-child:after {
+        content: "";
+        margin-inline: 0rem;
+    }
+  }
+
+  .banner-compliance-links a {
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+  }
+  .banner-compliance-links a:hover,
+  .banner-compliance-links a:focus {
+    border-bottom: 3px solid currentColor;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Compliance links",
+  "tag": null,
+  "blocks": [
+    {
+        "type": "_compliance-link"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Font settings"
+    },
+    {
+      "type": "range",
+      "id": "compliance_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+    ],
+  "presets": [
+    {
+        "name": "Compliance links",
+        "category": "t:categories.basic",
+        "settings": {
+            "compliance_font_size": 11
+        },
+        "blocks": {
+            "compliance_link_NhQBib": {
+              "type": "_compliance-link",
+              "name": "No Purchase Necessary",
+              "settings": {
+                "link": "#",
+                "link_text": "No purchase necessary",
+                "link_required": true,
+                "link_external": false
+              },
+              "blocks": {}
+            },
+            "compliance_link_VDagKi": {
+              "type": "_compliance-link",
+              "name": "FAQs",
+              "settings": {
+                "link": "#",
+                "link_text": "FAQs",
+                "link_required": false,
+                "link_external": false
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "compliance_link_NhQBib",
+            "compliance_link_VDagKi"
+        ]
+    }
+  ]
+}
+{% endschema %}

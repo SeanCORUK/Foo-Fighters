@@ -1,0 +1,123 @@
+<bandsintown-feed id="{{ block.id }}"
+style="
+--border-color: {{ block.settings.button_border.rgb }};
+--border-width: {{ block.settings.button_border_thickness }}px;
+--button-background-color: {{ block.settings.button_background.rgb }};
+--font-color: {{ block.settings.button_font.rgb }}
+"
+>
+
+    <div class="bandsintown">
+      {%
+        render 'web-bandsintown',
+        artist_id: block.settings.artist_id,
+        limit: block.settings.limit
+      %}
+    </div>
+</bandsintown-feed>
+
+{% stylesheet %}
+  bandsintown-feed {
+    width: 100%;
+  }
+  .bit-widget .bit-offers {
+    border: rgb(var(--border-color)) var(--border-width) solid !important;
+    background-color: rgb(var(--button-background-color)) !important;
+    color: rgb(var(--font-color)) !important;
+  }
+{% endstylesheet %}
+
+<style>
+{% if block.settings.playmycity == false %}
+    .bit-play-my-city-wrapper {
+        display: none !important;
+    }
+{% endif %}
+{% if block.settings.playmycity == false %}
+    .bit-follow-section-wrapper {
+        display: none !important;
+    }
+{% endif %}
+{% if block.settings.rsvp == false %}
+    .bit-rsvp-container {
+        display: none !important;
+    }
+{% endif %}
+    .bit-follow-section-wrapper + div { 
+        display: none !important
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Bandsintown",
+  "tag": null,
+  "settings": [
+    {
+        "type": "text",
+        "id": "artist_id",
+        "label": "Artist ID"
+    },
+    {
+        "type": "range",
+        "id": "limit",
+        "min": 10,
+        "max": 100,
+        "step": 1,
+        "unit": "ev",
+        "label": "Number of events to show",
+        "default": 100
+    },
+    {
+        "type": "checkbox",
+        "id": "playmycity",
+        "label": "Show play my city"
+    },
+    {
+        "type": "checkbox",
+        "id": "follow",
+        "label": "Show play follow link"
+    },
+    {
+        "type": "checkbox",
+        "id": "rsvp",
+        "label": "Show play rsvp button"
+    },
+    {
+        "type": "header",
+        "content": "Buttons"
+    },
+    {
+        "type": "color",
+        "id": "button_border",
+        "label": "Border color"
+    },
+    {
+        "type": "range",
+        "id": "button_border_thickness",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border thickness",
+        "default": 1
+    },
+    {
+        "type": "color",
+        "id": "button_background",
+        "label": "Background color"
+    },
+    {
+        "type": "color",
+        "id": "button_font",
+        "label": "Font color"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Bandsintown",
+      "category": "Website"
+    }
+  ]
+}
+{% endschema %}

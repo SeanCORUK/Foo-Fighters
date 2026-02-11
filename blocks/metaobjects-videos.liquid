@@ -1,0 +1,184 @@
+<div class="resource-list resource-list--grid" style="
+    --resource-list-column-gap-desktop: {{ block.settings.columns_gap }}px;
+    --resource-list-row-gap-desktop: {{ block.settings.rows_gap }}px;
+    --resource-list-columns: repeat({{ block.settings.columns }}, 1fr);
+    --resource-list-columns-mobile: repeat({{ block.settings.mobile_columns }}, 1fr);
+    --column-count-mobile: {{ block.settings.mobile_columns }};
+    ">
+    {% assign album_title = metaobject.title %}
+    {% assign sorted_videos = shop.metaobjects.videos.values | sort_natural: 'release_date' | reverse %}
+    {% assign count = 0 %}
+    {% for video in sorted_videos limit: block.settings.max_products %}
+    {% assign count = count | plus: 1 %}
+
+    {% assign video_url = video.youtube_url %}
+    {% assign video_id = video_url | split: 'v=' | last | split: '&' | first %}
+    <div class="resource-list__item video" data-youtube-id="{{ video_id }}">
+        {% if video_id != blank %}
+        {% assign thumbnail_url = 'http://img.youtube.com/vi/' | append: video_id | append: '/0.jpg' %}
+        {% endif %}
+        <a
+        href="https://www.youtube.com/watch?v={{ video_id }}"
+        data-fancybox="gallery"
+        data-caption="{{ video.title }} Video"
+        title="{{ video.title }} Video"
+        class="video__link"
+        >
+        {% if video.video_poster != blank %}
+            {{ video.video_poster | image_url: width: master | image_tag: class: 'video--poster-image' }}
+        {% else %}
+            <img
+            src="{{ thumbnail_url }}"
+            alt="{{ video.title }} Video Poster"
+            title="{{ video.title }} Video"
+            class="video--poster-image"
+            >
+        {% endif %}
+        <div class="video--overlay">
+            {{ 'icon-play.svg' | inline_asset_content }}
+            <div class="video--title">{{ video.title }}</div>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% stylesheet %}
+  .video-container {
+    width: 100%;
+  }
+  .video-container .video {
+    position: relative;
+    overflow: hidden;
+    color: var(--color-background)
+  }
+  .video--poster-image {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center;
+    transition: scale 225ms ease-in-out;
+  }
+  .video-container .video:hover .video--poster-image {
+    scale: 1.1
+  }
+  .video--overlay {
+    position: absolute;
+    inset: 0;
+  }
+  .video--overlay:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg,rgba(var(--color-foreground-rgb) / 1) 0%, rgba(var(--color-foreground-rgb) / 0) 75%);
+  }
+  .video--overlay svg {
+    width: 15%;
+    height: auto;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(var(--color-background-rgb) / 0.7);
+    transform-origin: center;
+    transition: color 225ms ease-in-out;
+  }
+  .video:hover .video--overlay svg {
+    color: rgb(var(--color-background-rgb) / 1);
+  }
+  .video--title {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    color: var(--color-background);
+    position: absolute;
+    inset: auto 0 0 0
+  } 
+  @media (hover: hover) {
+    .video--overlay:before {
+        opacity: 0;
+        transition: all 250ms ease-in-out;
+    }
+    .video--title {
+        transform: translateY(101%);
+        transition: all 250ms ease-in-out;
+    }
+
+    .video:hover .video--overlay:before {
+        opacity: 1;
+    }
+    .video:hover .video--title {
+        transform: translateY(0);
+    }
+
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Videos",
+  "class": "video-container",
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "t:settings.product_count",
+      "min": 1,
+      "max": 16,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "t:settings.mobile_columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:options.one_number"
+        },
+        {
+          "value": "2",
+          "label": "t:options.two_number"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "t:settings.horizontal_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "rows_gap",
+      "label": "t:settings.vertical_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Videos",
+      "category": "Metaobjects"
+    }
+  ]
+}
+{% endschema %}

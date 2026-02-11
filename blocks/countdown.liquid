@@ -1,0 +1,254 @@
+<div class="spacing-style {{ block.id | prepend: 'countdown-container--' }}" style="{% render 'spacing-padding', settings: block.settings %}">
+  <div id="{{ block.id | prepend: 'countdown-' }}" class="countdown-timer {{ block.id | prepend: 'countdown-' }}"></div>
+</div>
+
+<style>
+  {{ block.id | prepend: '.countdown-' }} {
+    --_countdown-gap: {{ block.settings.countdown_gap | divided_by: 16.00 | append: 'rem' }};
+    --_countdown-time-gap: {{ block.settings.countdown_time_gap | divided_by: 16.00 | append: 'rem' }};
+    --_countdown-number-fs: {{  block.settings.countdown_number_size | divided_by: 16.00 | append: 'rem' }};
+    --_countdown-label-fs: {{  block.settings.countdown_label_size | divided_by: 16.00 | append: 'rem' }};
+    --_countdown-number-font: {{ block.settings.numbers_font }};
+    --_countdown-label-font: {{ block.settings.label_font }};
+  }
+</style>
+
+{% stylesheet %}
+  .countdown-timer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: var(--horizontal-alignment);
+    gap: var(--_countdown-gap);
+    line-height: 1;
+  }
+  .countdown-timer .time-section {
+    display: flex;
+    align-items: center;
+    justify-content: var(--horizontal-alignment);
+    gap: var(--_countdown-time-gap);
+    @media(max-width: 660px) { flex-direction: column; }
+  }
+  .countdown-timer .time-section .number {
+    font-family: var(--_countdown-number-font);
+    font-size: var(--_countdown-number-fs);
+    @media (max-width: 750px) { font-size: calc(var(--_countdown-number-fs) * 0.7) }
+  }
+  .countdown-timer .time-section .label {
+    font-family: var(--_countdown-label-font);
+    font-size: var(--_countdown-label-fs);
+    @media (max-width: 750px) { font-size: calc(var(--_countdown-label-fs) * 0.7) }
+  }
+{% endstylesheet %}
+  
+
+<script>
+  // Set your target date here (format: "Month Day, Year HH:MM:SS")
+  const {{ block.id | prepend: 'targetDate_' }} = new Date('{{ block.settings.end_time }}').getTime();
+
+  function wrapInSpans(text) {
+    const numbers = text.match(/\d+/)[0];
+    const letters = text.match(/[A-Z]+/)[0];
+    return `<span class="number">${numbers}</span><span class="label">${letters}</span>`;
+  }
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = {{ block.id | prepend: 'targetDate_' }} - now;
+
+    if (distance < 0) {
+      document.getElementById('countdown').innerHTML = '<div class="time-section">' + wrapInSpans('EXPIRED') + '</div>';
+      
+      // Hide specific elements when countdown ends
+      const elementsToHide = ['product-form', 'variant-selects', 'quantity-input'];
+      elementsToHide.forEach(tagName => {
+        const elements = document.getElementsByTagName(tagName);
+        Array.from(elements).forEach(el => {
+          el.style.display = 'none';
+        });
+      });
+      
+      return;
+    }
+
+    const {{ block.id | prepend: 'days' }} = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const {{ block.id | prepend: 'hours' }} = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const {{ block.id | prepend: 'minutes' }} = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const {{ block.id | prepend: 'seconds' }} = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const daysStr = String({{ block.id | prepend: 'days' }}).padStart(2, '0') + 'DAYS';
+    const hoursStr = String({{ block.id | prepend: 'hours' }}).padStart(2, '0') + 'HOURS';
+    const minutesStr = String({{ block.id | prepend: 'minutes' }}).padStart(2, '0') + 'MINUTES';
+    const secondsStr = String({{ block.id | prepend: 'seconds' }}).padStart(2, '0') + 'SECONDS';
+
+    document.getElementById('{{ block.id | prepend: 'countdown-' }}').innerHTML = `
+      <div class="time-section">${wrapInSpans(daysStr)}</div>
+      <div class="time-section">${wrapInSpans(hoursStr)}</div>
+      <div class="time-section">${wrapInSpans(minutesStr)}</div>
+      <div class="time-section">${wrapInSpans(secondsStr)}</div>
+    `;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+{% schema %}
+{
+  "name": "Countdown",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Countdown Settings"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End date and time",
+      "default": "December 30, 2033 13:13:00",
+      "info": "Format: December 17, 2033 13:13:00"
+    },
+    {
+      "type": "select",
+      "id": "numbers_font",
+      "label": "Numbers font",
+      "options": [
+        {
+          "value": "var(--font-body--family)",
+          "label": "t:options.body"
+        },
+        {
+          "value": "var(--font-subheading--family)",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "var(--font-heading--family)",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "var(--font-accent--family)",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "var(--font-body--family)"
+    },
+    {
+      "type": "range",
+      "id": "countdown_number_size",
+      "label": "Number font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "label_font",
+      "label": "Labels font",
+      "options": [
+        {
+          "value": "var(--font-body--family)",
+          "label": "t:options.body"
+        },
+        {
+          "value": "var(--font-subheading--family)",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "var(--font-heading--family)",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "var(--font-accent--family)",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "var(--font-body--family)"
+    },
+    {
+      "type": "range",
+      "id": "countdown_label_size",
+      "label": "Label font size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "countdown_gap",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "countdown_time_gap",
+      "label": "Time gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "info": "Gap between the number and the label"
+    },
+
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown",
+      "category": "t:categories.decorative",
+    }
+  ]
+}
+{% endschema %}

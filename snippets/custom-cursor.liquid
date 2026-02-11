@@ -1,0 +1,86 @@
+<section class="custom-cursor-section">
+    <div
+      class="custom-cursor-wrapper center"
+      style="
+        --cursor-width-desktop: 100%;
+        --cursor-width-mobile: 100%;
+      "
+      data-mobile-enabled="false"
+    >
+      <img
+        src="{{ settings.cursor_image | image_url: width: 32 }}"
+        alt="Custom cursor"
+        class="custom-cursor-image"
+      >
+    </div>
+  
+</section>
+
+{% stylesheet %}
+  .custom-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s linear;
+    animation: floatUpDown 4s ease-in-out infinite;
+  }
+
+  .custom-cursor-image {
+    width: var(--cursor-width-desktop);
+    height: auto;
+    display: block;
+  }
+
+  .custom-cursor-wrapper.left {
+    transform: translate(0%, 0);
+  }
+
+  .custom-cursor-wrapper.center {
+    transform: translate(0%, 0);
+  }
+
+  .custom-cursor-wrapper.right {
+    transform: translate(0%, 0);
+  }
+
+  @keyframes floatUpDown {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+  }
+
+  @media screen and (max-width: 768px) {
+    .custom-cursor-image {
+      width: var(--cursor-width-mobile);
+    }
+
+    .custom-cursor-wrapper[data-mobile-enabled="false"] {
+      display: none !important;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const wrapper = document.querySelector(".custom-cursor-wrapper");
+    if (!wrapper) return;
+
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const mobileEnabled = wrapper.dataset.mobileEnabled === "true";
+
+    if (isMobile && !mobileEnabled) {
+      wrapper.remove(); // Remove image entirely for mobile if disabled
+      return;
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      const offsetX = 15;
+      const offsetY = 15;
+
+      wrapper.style.left = `${e.clientX + offsetX}px`;
+      wrapper.style.top = `${e.clientY + offsetY}px`;
+    });
+  });
+</script>

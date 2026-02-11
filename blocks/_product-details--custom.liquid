@@ -1,0 +1,52 @@
+
+<div>{% content_for 'blocks' %}</div>
+
+{% schema %}
+{
+    "name": "Custom product info",
+    "blocks": [
+        {
+            "type": "_details-block"
+        },
+    ],
+    "presets": [
+        {
+            "name": "Product details accordian",
+            "blocks": {
+                "details_block_bundle": {
+                    "type": "_details-block",
+                    "name": "Bundle",
+                    "settings": {
+                        "details_summary": "This bundle contains",
+                        "details_content": "{{ closest.product.metafields.custom.bundle_contents | metafield_tag }}",
+                        "details_open": true
+                    }
+                },
+                "details_block_description": {
+                    "type": "_details-block",
+                    "name": "Description",
+                    "settings": {
+                        "details_summary": "Description",
+                        "details_content": "{{ closest.product.description }}",
+                        "details_open": true
+                    }
+                },
+                "details_block_tracklist": {
+                    "type": "_details-block",
+                    "name": "Tracklist",
+                    "settings": {
+                        "details_summary": "Tracklist",
+                        "details_content": "{{ closest.product.metafields.custom.tracklist | metafield_tag }}",
+                        "details_open": false
+                    }
+                }
+            },
+            "block_order":[
+                "details_block_bundle",
+                "details_block_description",
+                "details_block_tracklist"
+            ]
+        }
+    ]
+}
+{% endschema %}

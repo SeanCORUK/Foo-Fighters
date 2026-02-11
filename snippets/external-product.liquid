@@ -1,0 +1,68 @@
+{% liquid
+if closest.product.metafields.custom.external_link != blank
+assign externalLink = closest.product.metafields.custom.external_link
+endif
+%}
+<div class="border-style custom-section-content" style="--border-width: 1px; --border-style: none; --border-color:
+   rgb(var(--color-border-rgb) / 1.0); --border-radius:
+   0px; 
+   ">
+   <div class="
+      spacing-style
+      layout-panel-flex
+      layout-panel-flex--column
+      section-content-wrapper
+      mobile-column
+      " style="
+      --flex-direction: column; --flex-wrap: nowrap; --flex-wrap-mobile: wrap;
+      --gap: max(24px, calc(var(--gap-scale, 1.0) * 25px));
+      --horizontal-alignment: center; --vertical-alignment: center;
+      --vertical-alignment-mobile: center;
+      --padding-block-start: max(20px, calc(var(--spacing-scale) * 48px));--padding-block-end: max(20px, calc(var(--spacing-scale) * 48px));
+      " data-testid="section-content">
+      <div class=" spacing-style text-block text-block--Ac2hQbEsyc2dhay9iN__text_w6ncTW h2
+         " style="
+         --padding-block-start: 0px; --padding-block-end:0px; 
+         --padding-inline-start:0px; --padding-inline-end:0px; 
+         --color: var(--color-foreground);
+         --width: fit-content;
+         --max-width: var(--max-width--body-normal);
+         ">
+         {% if settings.page_titles == true %}
+         {% assign title_break = true %}
+         {% endif %}
+         {% if title_break and closest.product.title contains '|' %}
+         {%- assign title = closest.product.title | split: '|' -%}
+         <div class="split">
+            <div>{{ title | first | strip }}</div>
+            <small>{{ title | last | strip }}</small>
+         </div>
+         {% else %}
+         {{ closest.product.title }}
+         {% endif %}
+      </div>
+      <rte-formatter class=" spacing-style text-block text-block--AVkg0YWsrYjUrUFZob__text_fAE8pU rte
+         rte 
+         " style="
+         --padding-block-start: 0px; --padding-block-end:0px; 
+         --padding-inline-start:0px; --padding-inline-end:0px; 
+         --width: fit-content;
+         --max-width: var(--max-width--body-normal);
+         ">
+         <p>This product is not available on this store, please visit the link below to access it.</p>
+      </rte-formatter>
+      <a href="{{ externalLink }}" class="
+         size-style
+         button
+         button--AS1Y5cUdxTkYrTzJ2V__button_UBJYpD
+         " style="--size-style-width: fit-content;--size-style-height: ;--size-style-width-mobile: fit-content; --size-style-width-mobile-min: fit-content;" target="_blank" rel="noopener noreferrer">
+      Visit link
+      </a>
+   </div>
+</div>
+
+<style>
+product-recommendations {
+display:none !important;
+}
+</style>

@@ -1,0 +1,51 @@
+<apple-player id="{{ block.id }}">
+  {% if block.settings.apple != blank %}
+    <div class="dsp apple-container">
+      {% assign apple_url = block.settings.apple %}
+      {% assign apple_album_id = apple_url | split: '/album/' | last | split: '?si' | first %}
+
+      <iframe
+        allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+        frameborder="0"
+        height="450"
+        width="100%"
+        style="width:100%;max-width:880px;overflow:hidden;border-radius:10px;"
+        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+        src="https://embed.music.apple.com/us/album/{{ apple_album_id }}"
+        class="apple-frame"
+      ></iframe>
+    </div>
+  {% endif -%}
+</apple-player>
+
+{% stylesheet %}
+  .shopify-block:has(apple-player),
+  .apple-container,
+  .apple-container iframe {
+    width: 100%
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Apple Music",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Apple Music",
+      "info": "Three dots, Copy Link"
+    },
+    {
+      "type": "text",
+      "id": "apple",
+      "label": "Apple Music"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apple Music",
+      "category": "t:categories.music"
+    }
+  ]
+}
+{% endschema %}
