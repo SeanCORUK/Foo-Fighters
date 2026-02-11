@@ -18,11 +18,11 @@
           "type": "social-links",
           "settings": {
             "icon_size": 30,
-            "facebook_url": "https://facebook.com/kylieminogue",
-            "instagram_url": "https://instagram.com/kylieminogue",
-            "youtube_url": "https://youtube.com/@kylieminogue",
-            "tiktok_url": "",
-            "twitter_url": "",
+            "facebook_url": "https://www.facebook.com/foofighters/",
+            "instagram_url": "https://www.instagram.com/foofighters/",
+            "youtube_url": "https://www.youtube.com/user/foofighters",
+            "tiktok_url": "https://www.tiktok.com/@foofightersofficial?lang=en",
+            "twitter_url": "https://twitter.com/foofighters",
             "threads_url": "",
             "linkedin_url": "",
             "bluesky_url": "",
@@ -32,8 +32,8 @@
             "vimeo_url": "",
             "twitch_url": "",
             "discord_url": "",
-            "apple_music_url": "https://music.apple.com/us/artist/kylie-minogue/465031",
-            "spotify_url": "https://open.spotify.com/artist/4RVnAU35WRWra6OZ3CbbMA?si=dbedcae1c40a4975",
+            "apple_music_url": "https://music.apple.com/gb/artist/foo-fighters/6906197",
+            "spotify_url": "https://open.spotify.com/artist/7jy3rLJdDQY21OgRLCZ9sD?si=77b0ff26c687470f",
             "custom_url": ""
           },
           "blocks": {}
@@ -69,11 +69,11 @@
       "settings": {
         "horizontal_alignment": "center",
         "section_width": "page-width",
-        "gap": 16,
+        "gap": 24,
         "divider_thickness": 1,
         "color_scheme": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 66,
+        "padding-block-end": 66
       }
     }
   },
