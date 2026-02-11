@@ -125,13 +125,13 @@
           "input_background": "#000000",
           "input_text_color": "#f8f0e0",
           "input_border_color": "#f8f0e0",
-          "input_hover_background": "#f8f0e01d",
+          "input_hover_background": "#f8f0e01c",
           "variant_background_color": "#000000",
           "variant_text_color": "#f8f0e0",
           "variant_border_color": "#f8f0e0",
           "variant_hover_background_color": "#f8f0e03b",
           "variant_hover_text_color": "#f8f0e0",
-          "variant_hover_border_color": "#f8f0e01d",
+          "variant_hover_border_color": "#f8f0e01c",
           "selected_variant_background_color": "#f8f0e0",
           "selected_variant_text_color": "#000000",
           "selected_variant_border_color": "#f8f0e0",
@@ -576,5 +576,10 @@
         }
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "h1, h2, h3,h4, h5, h6 {line-height: 1;}"
+    ]
   }
 }
